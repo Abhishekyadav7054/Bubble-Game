@@ -1,73 +1,52 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+function makebubble() {
+let bub = "";
+
+  for (let i = 0; i < 184; i++) {
+    let a = Math.floor(Math.random() * 10);
+    bub += ` <div class="bubble">${a}</div>`;
+  }
+  document.querySelector(".b-panel").innerHTML = bub;
 }
-html,body{
-    width: 100%;
-    height: 100%;
+
+let startTime = 60;
+function changeTimer() {
+   
+    let x = setInterval(() => {
+        if(startTime>0){
+        startTime--;
+        document.querySelector("#time").innerHTML = startTime;}
+        else if(startTime==0){
+            document.querySelector(".b-panel").innerHTML= "<h1>GAME OVER </h1>"
+        }
+        else{
+            clearInterval(x);
+        }
+      }, 1000);
+    }
+let a;
+function hitchange(){
+     a = Math.floor(Math.random()*10);
+    document.querySelector("#hitvalue").innerHTML= a;
+}  
+
+let score = 0;
+function scoreinc(){
+  score += 10;
+  document.querySelector("#score").innerHTML= score;
 }
-.main{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(160, 244, 244);
-}
-#panel{
-    width: 80%;
-    height: 80%;
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    overflow: hidden;
-}
-.top-panel{
-    width: 100%;
-    height: 80px;
-    background-color: rgb(70, 157, 157);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 26%;
-}
-.box{
-    color: #fff;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    font-family: sans-serif, serif;
-}
-.elem{
-    background-color: white;
-    font-size: 19px;
-    color: rgb(55, 143, 143); 
-    padding: 5px 10px;
-    border-radius: 3px;
-}
-.b-panel{
-    width: 100%;
-    height: calc(100% - 80px);
-    padding: 15px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-.bubble{
-    width: 40px;
-    height: 40px;
-    background-color: rgb(74, 147, 147);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 19px;
-    font-weight: 600;
-}
-.bubble:hover{
-    background-color: rgb(46, 106, 106);
-    cursor: pointer;
-}
+
+document.querySelector(".b-panel").addEventListener("click",(deta)=>{
+    let b =parseInt(deta.target.textContent);
+    if (b === a){
+        scoreinc();
+        hitchange();
+        makebubble();
+    }
+})
+
+
+    
+
+hitchange();
+changeTimer();
+makebubble();
